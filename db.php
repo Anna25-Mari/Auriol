@@ -86,11 +86,11 @@ function installer(PDO $pdo): void
     $n = (int)$pdo->query('SELECT COUNT(*) FROM spectacles')->fetchColumn();
     if ($n === 0) {
         $ins = $pdo->prepare('INSERT INTO spectacles (ville, salle, date_spectacle, complet) VALUES (?, ?, ?, ?)');
-        $ins->execute(['Paris', "L'Olympia", '2026-10-16', 0]);
-        $ins->execute(['Lyon', 'Le Transbordeur', '2026-11-07', 0]);
-        $ins->execute(['Bordeaux', 'Rocher de Palmer', '2026-11-21', 0]);
-        $ins->execute(['Marseille', 'Le Dôme', '2026-12-05', 0]);
-        $ins->execute(['Genève', 'BFM', '2027-01-30', 0]);
+        $ins->execute(['Cotonou', 'Fidjrossè-Kalebasse', '2026-09-26', 0]);
+        $ins->execute(['Cotonou', 'Fidjrossè-Kalebasse', '2026-10-31', 0]);
+        $ins->execute(['Cotonou', 'Fidjrossè-Kalebasse', '2026-11-28', 0]);
+        $ins->execute(['Cotonou', 'Fidjrossè-Kalebasse', '2026-12-26', 0]);
+        $ins->execute(['Cotonou', 'Fidjrossè-Kalebasse', '2027-01-30', 0]);
     }
 
     $nv = (int)$pdo->query('SELECT COUNT(*) FROM videos')->fetchColumn();
