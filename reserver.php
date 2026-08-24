@@ -29,9 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $prix = (int)($old['type_billet'] === 'vip' ? $spec['prix_vip'] : $spec['prix_standard']);
         $ref = generer_reference();
         $code = generer_code_ticket();
-        $st = db()->prepare('INSERT INTO reservations (reference, spectacle_id, nom, email, type_billet, quantite, montant_total, code_ticket) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
-        $st->execute([$ref, $spec['id'], $old['nom'], $old['email'], $old['type_billet'], $old['quantite'], $prix * $old['quantite'], $code]);
-        header('Location: paiement.php?ref=' . urlencode($ref));
+        $montant = $prix * $old['quantite'];
+        $st = db()->prepare('INSERT INTO reservations (reference, spectacle_id, nom, email, type_billet, quantite, montant_total, code_ticket, statut) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $st->execute([$ref, $spec['id'], $old['nom'], $old['email'], $old['type_billet'], $old['quantite'], $montant, $code, 'en_attente']);
+        $url = 'https://tike229.ghinel.com/paiement?ref=' . urlencode($ref) . '&code=' . urlencode($code) . '&montant=' . $montant . '&salle=' . urlencode($spec['salle']) . '&ville=' . urlencode($spec['ville']) . '&date=' . urlencode(date('d/m/Y', strtotime($spec['date_spectacle'])));
+        header('Location: ' . $url);
         exit;
     }
 }

@@ -4,10 +4,19 @@ require_once __DIR__ . '/layout.php';
 $code = trim($_GET['code'] ?? '');
 $res = reservation_par_code($code);
 
-if (!$res || $res['statut'] !== 'paye') {
+if (!$res) {
     entete('Billet');
     echo '<div class="container py-5 text-center">';
-    alerte('warning', 'Billet introuvable ou paiement non confirmé.');
+    alerte('danger', 'Code de billet introuvable.');
+    echo '<a class="btn btn-outline-gold mt-3" href="index.html#tour-dates-sec">Retour aux dates</a></div>';
+    pied();
+    exit;
+}
+
+if ($res['statut'] !== 'paye') {
+    entete('Billet');
+    echo '<div class="container py-5 text-center">';
+    alerte('warning', 'Paiement en attente. Votre billet vous sera envoyé par email une fois le paiement confirmé.');
     echo '<a class="btn btn-outline-gold mt-3" href="index.html#tour-dates-sec">Retour aux dates</a></div>';
     pied();
     exit;
