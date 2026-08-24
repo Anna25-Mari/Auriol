@@ -199,6 +199,19 @@ h1, h2, h3, h4, h5, h6 {
   text-shadow: 0 2px 24px rgba(0, 0, 0, 0.55);
 }
 
+.hero-kicker {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #a5a29a;
+}
+
+.hero-kicker i {
+  color: var(--bb-accent);
+}
+
 .hero-player .latest-title {
   display: flex;
   align-items: center;
