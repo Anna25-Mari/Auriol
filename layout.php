@@ -4,11 +4,10 @@ require_once __DIR__ . '/db.php';
 function entete(string $titre): void
 {
     $socials = [
-        'tiktok' => 'fab fa-tiktok',
-        'facebook-f' => 'fab fa-facebook-f',
-        'instagram' => 'fab fa-instagram',
-        'x-twitter' => 'fab fa-x-twitter',
-        'youtube' => 'fab fa-youtube',
+        'TikTok' => ['fab fa-tiktok', 'https://www.tiktok.com/@auriol.migan'],
+        'Facebook' => ['fab fa-facebook-f', 'https://www.facebook.com/share/1BZKFY1YBX/'],
+        'Instagram' => ['fab fa-instagram', 'https://www.instagram.com/auriolmigan'],
+        'YouTube' => ['fab fa-youtube', 'https://www.youtube.com/@auriolmigan-os6fc'],
     ];
     ?><!DOCTYPE html>
 <html lang="fr">
@@ -39,8 +38,8 @@ function entete(string $titre): void
                         <li class="nav-item"><a class="nav-link" href="index.html#contact-sec">Contact</a></li>
                     </ul>
                     <div class="ms-lg-4 d-none d-lg-flex align-items-center gap-3">
-                        <?php foreach ($socials as $slug => $icon) { ?>
-                            <a class="social-link" href="#!" aria-label="<?php echo ucfirst($slug); ?>"><i class="<?php echo $icon; ?>"></i></a>
+                        <?php foreach ($socials as $slug => $s) { ?>
+                            <a class="social-link" href="<?php echo htmlspecialchars($s[1]); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo $slug; ?>"><i class="<?php echo $s[0]; ?>"></i></a>
                         <?php } ?>
                     </div>
                 </div>
@@ -58,11 +57,10 @@ function pied(): void
                 <div class="brand-text footer-brand mb-2">Auriol&nbsp;Migan</div>
                 <div class="footer-tagline mb-4">Humoriste. Producteur. Sans filtre.</div>
                 <div class="footer-social justify-content-center mb-4">
-                    <a href="#!" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                    <a href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#!" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#!" aria-label="X"><i class="fab fa-x-twitter"></i></a>
-                    <a href="#!" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.tiktok.com/@auriol.migan" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/share/1BZKFY1YBX/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/auriolmigan" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@auriolmigan-os6fc" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
                 <div class="footer-bottom">&copy; 2026 Auriol MIGAN. Tous droits réservés.</div>
             </div>
