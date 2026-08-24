@@ -97,8 +97,8 @@ function installer(PDO $pdo): void
     if ($nv === 0) {
         $inv = $pdo->prepare('INSERT INTO videos (titre, description, prix, miniature, url_video) VALUES (?, ?, ?, ?, ?)');
         $inv->execute(['Sans Filtre - Le Film', 'Le spectacle culte, enfin disponible en ligne.', 10000, 'assets/img/portfolio/3.jpg', '']);
-        $inv->execute(['En Public au Zenith', 'Integrale du live au Zenith de Paris.', 15000, 'assets/img/portfolio/5.jpg', '']);
-        $inv->execute(['Podcast Special #50', 'L\'episode anniversaire avec les meilleurs moments.', 5000, 'assets/img/about/1.jpg', '']);
+        $inv->execute(['La Chapelle - Le Live', 'L\'intégrale d\'une soirée, au cœur de Fidjrossè.', 15000, 'assets/img/portfolio/5.jpg', '']);
+        $inv->execute(['Best-of Comédie CHAPELLE', 'Les meilleurs moments des dernières sessions.', 5000, 'assets/img/about/1.jpg', '']);
     }
 }
 
