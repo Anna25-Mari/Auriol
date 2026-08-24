@@ -1,0 +1,17 @@
+To: test@exemple.com
+Subject: Votre billet - Auriol MIGAN - Paris
+
+Bonjour Test Client,
+
+Votre paiement a été confirmé. Voici votre billet numérique :
+
+Spectacle : Paris - L'Olympia
+Date : 16 octobre 2026
+Type : VIP x2
+Total payé : 20 000 FCFA
+Code du billet : AUR-D56E89E190
+
+Présentez ce code (QR) à l'entrée : http://localhost/Auriol/billet.php?code=AUR-D56E89E190
+
+À très bientôt,
+Auriol MIGAN
