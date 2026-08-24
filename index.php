@@ -1,0 +1,412 @@
+<?php
+require_once __DIR__ . '/db.php';
+
+$tournees = spectacles_tournees();
+$jours = ['Mon' => 'Lun', 'Tue' => 'Mar', 'Wed' => 'Mer', 'Thu' => 'Jeu', 'Fri' => 'Ven', 'Sat' => 'Sam', 'Sun' => 'Dim'];
+$moisAbr = [1 => 'Jan', 2 => 'Fév', 3 => 'Mar', 4 => 'Avr', 5 => 'Mai', 6 => 'Juin', 7 => 'Juil', 8 => 'Août', 9 => 'Sep', 10 => 'Oct', 11 => 'Nov', 12 => 'Déc'];
+?>
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Auriol MIGAN — Humoriste. Dates de tournée, réservation de billets, podcasts, spectacles et merch officiel." />
+        <title>Auriol MIGAN — Humoriste | Tournée, Podcast & Spectacles</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,800" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/custom.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand brand-text" href="#page-top">Auriol&nbsp;Migan</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Basculer la navigation">
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0 align-items-lg-center gap-lg-4">
+                        <li class="nav-item"><a class="nav-link" href="#tour-dates-sec">Tournée</a></li>
+                        <li class="nav-item"><a 
+                            class="nav-link" href="#vod-sec">En ligne</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#listen-sec">Podcast</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#apropos-sec">À propos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact-sec">Contact</a></li>
+                    </ul>
+                    <div class="ms-lg-4 d-none d-lg-flex align-items-center gap-3">
+                        <a class="social-link" href="#!" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a class="social-link" href="#!" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                        <a class="social-link" href="#!" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a class="social-link" href="#!" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+                        <a class="social-link" href="#!" aria-label="SoundCloud"><i class="fab fa-soundcloud"></i></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <header class="hero-bar">
+            <img class="hero-photo" src="assets/img/hero.jpg" alt="Auriol MIGAN" />
+            <div class="container hero-inner">
+                <div class="hero-left">
+                    <p>Tournée, spectacles,<br />podcasts et merch</p>
+                    <div class="d-flex flex-column flex-sm-row gap-3 flex-wrap mb-5">
+                        <a class="btn btn-primary btn-lg text-uppercase fw-bold" href="#tour-dates-sec">Réserver un billet <span>&rarr;</span></a>
+                        <a class="btn btn-outline-gold btn-lg text-uppercase fw-bold" href="#vod-sec">Spectacles en ligne</a>
+                    </div>
+                    <div class="hero-player">
+                        <div class="latest-title">
+                            Dernier épisode
+                            <a href="#!" aria-label="Apple Podcasts"><i class="fab fa-apple fa-lg"></i></a>
+                            <a href="#!" aria-label="SoundCloud"><i class="fab fa-soundcloud fa-lg"></i></a>
+                        </div>
+                        <div class="player-box">
+                            <iframe width="100%" height="140" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/themonday-morning-podcast&color=%23dce067&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slidedown-wrap">
+                <a class="slidedown" href="#tour-dates-sec">Défiler <i class="fas fa-chevron-down ms-1"></i></a>
+            </div>
+        </header>
+
+        <section class="section" id="tour-dates-sec">
+            <div class="container">
+                <div class="title-bar">
+                    <div>
+                        <div class="tag">// Spectacles en direct</div>
+                        <h2 class="section-title text-uppercase">Dates de tournée</h2>
+                    </div>
+                </div>
+                <div class="shows-list">
+                    <?php if (!$tournees) { ?>
+                        <p class="text-muted">Les prochaines dates seront annoncées très bientôt.</p>
+                    <?php } ?>
+                    <?php foreach ($tournees as $t) {
+                        $ts = strtotime($t['date_spectacle']);
+                        $my = $moisAbr[(int)date('n', $ts)] . ' ' . date('Y', $ts) . ' · ' . ($jours[date('D', $ts)] ?? date('D', $ts));
+                    ?>
+                    <div class="show-row">
+                        <div class="show-date"><span class="day"><?php echo date('d', $ts); ?></span><span class="my"><?php echo htmlspecialchars($my); ?></span></div>
+                        <div class="show-meta">
+                            <?php if (!empty($t['titre'])) { ?><div class="show-title"><?php echo htmlspecialchars($t['titre']); ?></div><?php } ?>
+                            <div class="show-city"><?php echo htmlspecialchars($t['ville']); ?></div>
+                            <div class="show-venue"><?php echo htmlspecialchars($t['salle']); ?></div>
+                        </div>
+                        <?php if ((int)$t['complet'] === 1) { ?>
+                            <span class="badge-soldout">Complet</span>
+                        <?php } else { ?>
+                            <a class="btn btn-outline-gold btn-sm text-uppercase btn-tickets" href="reserver.php?spectacle=<?php echo (int)$t['id']; ?>">Billets</a>
+                        <?php } ?>
+                    </div>
+                    <?php } ?>
+                </div>
+                <div class="text-end mt-4">
+                    <a class="link-arrow" href="#tour-dates-sec">Toutes les dates <span>&rarr;</span></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="vod-sec">
+            <div class="container">
+                <div class="title-bar">
+                    <div>
+                        <div class="tag">// En ligne</div>
+                        <h2 class="section-title text-uppercase">Spectacles à la demande</h2>
+                    </div>
+                    <a class="link-arrow d-none d-md-inline-block" href="videos.php">Tout le catalogue <span>&rarr;</span></a>
+                </div>
+                <p class="text-muted mb-5" style="max-width:44rem;">Spectacles filmés, films et podcasts premium. Payez une fois, regardez pendant 5 jours, puis le lien expire.</p>
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-tile">
+                            <a class="poster-card" href="videos.php" style="aspect-ratio:16/10;">
+                                <img src="assets/img/portfolio/3.jpg" alt="Sans Filtre - Le Film" />
+                                <span class="stock-tag in"><i class="fas fa-play me-1"></i> Aperçu</span>
+                                <div class="poster-title">Sans Filtre - Le Film</div>
+                            </a>
+                            <div class="product-body">
+                                <p class="text-muted mb-2">Le spectacle culte, enfin disponible en ligne.</p>
+                                <div class="product-price">10 000 FCFA <small class="text-muted fw-normal">/ 5 jours</small></div>
+                            </div>
+                            <a class="btn btn-primary text-uppercase fw-bold product-btn" href="videos.php"><i class="fas fa-play me-2"></i>Louer maintenant</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-tile">
+                            <a class="poster-card" href="videos.php" style="aspect-ratio:16/10;">
+                                <img src="assets/img/portfolio/5.jpg" alt="En Public au Zénith" />
+                                <span class="stock-tag in"><i class="fas fa-play me-1"></i> Aperçu</span>
+                                <div class="poster-title">En Public au Zénith</div>
+                            </a>
+                            <div class="product-body">
+                                <p class="text-muted mb-2">L'intégrale du live au Zénith de Paris.</p>
+                                <div class="product-price">15 000 FCFA <small class="text-muted fw-normal">/ 5 jours</small></div>
+                            </div>
+                            <a class="btn btn-primary text-uppercase fw-bold product-btn" href="videos.php"><i class="fas fa-play me-2"></i>Louer maintenant</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mx-md-auto">
+                        <div class="product-tile">
+                            <a class="poster-card" href="videos.php" style="aspect-ratio:16/10;">
+                                <img src="assets/img/about/1.jpg" alt="Podcast Spécial #50" />
+                                <span class="stock-tag in"><i class="fas fa-play me-1"></i> Aperçu</span>
+                                <div class="poster-title">Podcast Spécial #50</div>
+                            </a>
+                            <div class="product-body">
+                                <p class="text-muted mb-2">L'épisode anniversaire avec les meilleurs moments.</p>
+                                <div class="product-price">5 000 FCFA <small class="text-muted fw-normal">/ 5 jours</small></div>
+                            </div>
+                            <a class="btn btn-primary text-uppercase fw-bold product-btn" href="videos.php"><i class="fas fa-play me-2"></i>Louer maintenant</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="listen-sec">
+            <div class="container">
+                <div class="title-bar">
+                    <div>
+                        <div class="tag">// Podcasts</div>
+                        <h2 class="section-title text-capitalize">Écouter</h2>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="pod-tile d-flex flex-column flex-sm-row gap-4">
+                            <a class="pod-artwork" href="#!" style="flex:0 0 40%;">
+                                <img src="assets/img/about/1.jpg" alt="Illustration du Podcast du Lundi" />
+                            </a>
+                            <div class="d-flex flex-column flex-grow-1">
+                                <div class="small-title">Épisodes hebdomadaires</div>
+                                <h3 class="pod-title">Le <span class="hl">Podcast du</span> Lundi</h3>
+                                <p class="text-muted mb-4">Auriol MIGAN déballe sa semaine, le sport et tout ce qui l'agace.</p>
+                                <div class="mt-auto">
+                                    <div class="listen-label">Écouter sur :</div>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <a class="pill-link" href="#!"><i class="fab fa-spotify"></i> Spotify</a>
+                                        <a class="pill-link" href="#!"><i class="fab fa-apple"></i> Apple</a>
+                                        <a class="pill-link" href="#!"><i class="fab fa-soundcloud"></i> SoundCloud</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="pod-tile d-flex flex-column flex-sm-row gap-4">
+                            <a class="pod-artwork" href="#!" style="flex:0 0 40%;">
+                                <img src="assets/img/about/2.jpg" alt="Illustration du podcast Auriol et Invités" />
+                            </a>
+                            <div class="d-flex flex-column flex-grow-1">
+                                <div class="small-title">Épisodes hebdomadaires</div>
+                                <h3 class="pod-title"><span class="hl">Auriol</span> et Invités</h3>
+                                <p class="text-muted mb-4">Conversations sans filtre avec des invités surprises.</p>
+                                <div class="mt-auto">
+                                    <div class="listen-label">Écouter sur :</div>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <a class="pill-link" href="#!"><i class="fab fa-spotify"></i> Spotify</a>
+                                        <a class="pill-link" href="#!"><i class="fab fa-youtube"></i> YouTube</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="specials-sec">
+            <div class="container">
+                <div class="title-bar">
+                    <div>
+                        <div class="tag">// Catalogue</div>
+                        <h2 class="section-title text-capitalize">Spectacles</h2>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="poster-card" href="#!">
+                            <img src="assets/img/portfolio/1.jpg" alt="Premier Rang" />
+                            <div class="poster-title">Premier Rang</div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="poster-card" href="#!">
+                            <img src="assets/img/portfolio/2.jpg" alt="Vivre Debout" />
+                            <div class="poster-title">Vivre Debout</div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="poster-card" href="#!">
+                            <img src="assets/img/portfolio/3.jpg" alt="Sans Filtre" />
+                            <div class="poster-title">Sans Filtre</div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="poster-card" href="#!">
+                            <img src="assets/img/portfolio/4.jpg" alt="À Voix Basse" />
+                            <div class="poster-title">À Voix Basse</div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="poster-card" href="#!">
+                            <img src="assets/img/portfolio/5.jpg" alt="En Public au Zénith" />
+                            <div class="poster-title">En Public au Zénith</div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="poster-card" href="#!">
+                            <img src="assets/img/portfolio/6.jpg" alt="Deuxième Souffle" />
+                            <div class="poster-title">Deuxième Souffle</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="store-sec">
+            <div class="container">
+                <div class="title-bar">
+                    <div>
+                        <div class="tag">// Merch officiel</div>
+                        <h2 class="section-title text-capitalize">Boutique</h2>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-tile">
+                            <div class="product-img-wrap">
+                                <span class="stock-tag in">En stock</span>
+                                <img src="assets/img/team/1.jpg" alt="T-shirt Auriol MIGAN Tour 2026" />
+                            </div>
+                            <div class="product-body">
+                                <h3>T-shirt Auriol MIGAN Tour 2026</h3>
+                                <div class="product-price">5 000 FCFA</div>
+                            </div>
+                            <a class="btn btn-primary text-uppercase fw-bold product-btn" href="#!">Ajouter au panier</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-tile">
+                            <div class="product-img-wrap">
+                                <span class="stock-tag out">Épuisé</span>
+                                <img src="assets/img/team/2.jpg" alt="Vinyle En Public au Zénith" />
+                            </div>
+                            <div class="product-body">
+                                <h3>Vinyle En Public au Zénith</h3>
+                                <div class="product-price">10 000 FCFA</div>
+                            </div>
+                            <a class="btn btn-primary disabled text-uppercase fw-bold product-btn" href="#!">Ajouter au panier</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mx-md-auto">
+                        <div class="product-tile">
+                            <div class="product-img-wrap">
+                                <span class="stock-tag in">En stock</span>
+                                <img src="assets/img/team/3.jpg" alt="Casquette Le Podcast du Lundi" />
+                            </div>
+                            <div class="product-body">
+                                <h3>Casquette Le Podcast du Lundi</h3>
+                                <div class="product-price">3 000 FCFA</div>
+                            </div>
+                            <a class="btn btn-primary text-uppercase fw-bold product-btn" href="#!">Ajouter au panier</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="apropos-sec">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-5">
+                        <img class="img-fluid w-100 bio-img" src="assets/img/about/3.jpg" alt="Auriol MIGAN sur scène" />
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="tag">// À propos</div>
+                        <h2 class="section-title text-uppercase mb-4">Auriol MIGAN</h2>
+                        <p class="lead mb-4">Humoriste et podcaster. Sur scène, il raconte la vie de tous les jours : les familles, le travail, les relations — sans filtre et sans tabou.</p>
+                        <p class="text-muted mb-4">Repéré dans les open mics, Auriol MIGAN enchaîne depuis les meilleures scènes du pays avec un humour observateur qui parle à tout le monde. Entre ses one-man shows, son podcast hebdomadaire et ses spectacles filmés, il est devenu l'une des voix montantes de la comédie.</p>
+                        <div class="row g-4 text-center text-sm-start">
+                            <div class="col-4">
+                                <div class="stat-nombre">120+</div>
+                                <div class="listen-label mb-0">Spectacles</div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-nombre">50k+</div>
+                                <div class="listen-label mb-0">Spectateurs</div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-nombre">6</div>
+                                <div class="listen-label mb-0">Villes en tournée</div>
+                            </div>
+                        </div>
+                        <a class="btn btn-outline-gold text-uppercase fw-bold mt-4" href="#tour-dates-sec">Voir la tournée <span>&rarr;</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-bar" id="contact-sec" style="background-image:url('assets/img/map-image.png');">
+            <div class="container contact-inner">
+                <h2 class="section-title text-uppercase text-center mb-5">Contact</h2>
+                <div class="contact-box">
+                    <div class="tag d-inline-flex align-items-center gap-2"><i class="far fa-envelope"></i> Écris au podcast</div>
+                    <p>Ligne directe</p>
+                    <h4 class="contact-email">podcast<br />auriolmigan <strong>@</strong><br />gmail.com</h4>
+                </div>
+                <div class="flourish-wrap">
+                    <svg width="220" height="26" viewBox="0 0 220 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 13 C 40 -8, 80 34, 110 13 C 140 -8, 180 34, 218 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="d-flex flex-wrap justify-content-center gap-3 mt-5">
+                    <a class="social-btn-lg" href="#!" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a class="social-btn-lg" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a class="social-btn-lg" href="#!" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a class="social-btn-lg" href="#!" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                    <a class="social-btn-lg" href="#!" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="col-lg-5">
+                        <div class="brand-text footer-brand">Auriol&nbsp;Migan</div>
+                        <div class="footer-tagline">Humoriste. Podcaster. Sans filtre.</div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-title">// Explorer</div>
+                        <ul class="footer-menu">
+                            <li><a href="#tour-dates-sec">Tournée</a></li>
+                            <li><a href="#vod-sec">En ligne</a></li>
+                            <li><a href="#listen-sec">Podcast</a></li>
+                            <li><a href="#apropos-sec">À propos</a></li>
+                            <li><a href="#contact-sec">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-title">// Suivre</div>
+                        <div class="footer-social">
+                            <a href="#!" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                            <a href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#!" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#!" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                            <a href="#!" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">&copy; 2026 Auriol MIGAN. Tous droits réservés.</div>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

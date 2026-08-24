@@ -23,21 +23,111 @@ function db(): PDO
             );
         }
         installer($pdo);
+        sync_tike($pdo);
     }
     return $pdo;
+}
+
+define('TIKE_API', 'https://api.tike229.ghinel.com/api/events');
+
+function sync_tike(PDO $pdo): void
+{
+    $cache = sys_get_temp_dir() . '/auriol_tike_sync.cache';
+    if (is_file($cache) && (time() - (int)filemtime($cache)) < 900) {
+        return;
+    }
+
+    $ctx = stream_context_create(['http' => ['timeout' => 5, 'ignore_errors' => true, 'header' => "User-Agent: AuriolMiganSite\r\n"]]);
+    $raw = @file_get_contents(TIKE_API, false, $ctx);
+    if ($raw === false) {
+        return;
+    }
+    @touch($cache);
+
+    $data = json_decode($raw, true);
+    if (!is_array($data) || !isset($data['events']) || !is_array($data['events'])) {
+        return;
+    }
+
+    foreach ($data['events'] as $ev) {
+        $org = mb_strtolower((string)($ev['organizer']['publicName'] ?? ''));
+        if (strpos($org, 'auriol') === false) {
+            continue;
+        }
+
+        $cats = $ev['ticketCategories'] ?? [];
+        usort($cats, fn($a, $b) => ($a['price'] ?? 0) <=> ($b['price'] ?? 0));
+        $pStd = (int)($cats[0]['price'] ?? 5000);
+        $pVip = (int)($cats[1]['price'] ?? $pStd * 2);
+        $catStd = $cats[0]['name'] ?? null;
+        $catVip = $cats[1]['name'] ?? null;
+        $persVip = max(1, (int)($cats[1]['personsPerTicket'] ?? 1));
+
+        $complet = !empty($cats) ? 1 : 0;
+        foreach ($cats as $c) {
+            if ((int)$c['capacity'] > (int)$c['soldCount']) {
+                $complet = 0;
+                break;
+            }
+        }
+
+        $titre = trim(preg_replace('/\s+\d{1,2}\s+[A-Za-zéûàè]+$/u', '', (string)$ev['title']));
+        $ville = 'Cotonou';
+        $salle = trim((string)$ev['venue']);
+        $date = substr((string)$ev['dateTime'], 0, 10);
+        $tikeId = (string)$ev['id'];
+
+        $st = $pdo->prepare('SELECT id FROM spectacles WHERE tike_id = ?');
+        $st->execute([$tikeId]);
+        if ($row = $st->fetch()) {
+            $u = $pdo->prepare('UPDATE spectacles SET titre = ?, ville = ?, salle = ?, date_spectacle = ?, prix_standard = ?, prix_vip = ?, cat_standard = ?, cat_vip = ?, pers_vip = ?, complet = ? WHERE id = ?');
+            $u->execute([$titre, $ville, $salle, $date, $pStd, $pVip, $catStd, $catVip, $persVip, $complet, $row['id']]);
+        } else {
+            $i = $pdo->prepare('INSERT INTO spectacles (tike_id, titre, ville, salle, date_spectacle, prix_standard, prix_vip, cat_standard, cat_vip, pers_vip, complet) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+            $i->execute([$tikeId, $titre, $ville, $salle, $date, $pStd, $pVip, $catStd, $catVip, $persVip, $complet]);
+        }
+    }
+
+    try {
+        $pdo->exec('DELETE s FROM spectacles s LEFT JOIN reservations r ON r.spectacle_id = s.id WHERE s.tike_id IS NULL AND r.id IS NULL');
+    } catch (PDOException $e) {
+    }
+}
+
+function spectacles_tournees(): array
+{
+    return db()->query('SELECT * FROM spectacles ORDER BY date_spectacle ASC')->fetchAll();
 }
 
 function installer(PDO $pdo): void
 {
     $pdo->exec("CREATE TABLE IF NOT EXISTS spectacles (
         id INT AUTO_INCREMENT PRIMARY KEY,
+        titre VARCHAR(150) NULL,
+        tike_id VARCHAR(40) NULL UNIQUE,
         ville VARCHAR(100) NOT NULL,
         salle VARCHAR(150) NOT NULL,
         date_spectacle DATE NOT NULL,
         prix_standard INT NOT NULL DEFAULT 5000,
         prix_vip INT NOT NULL DEFAULT 10000,
+        cat_standard VARCHAR(30) NULL,
+        cat_vip VARCHAR(30) NULL,
+        pers_vip INT NOT NULL DEFAULT 1,
         complet TINYINT(1) NOT NULL DEFAULT 0
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+    foreach ([
+        'ALTER TABLE spectacles ADD COLUMN titre VARCHAR(150) NULL AFTER id',
+        'ALTER TABLE spectacles ADD COLUMN tike_id VARCHAR(40) NULL UNIQUE',
+        'ALTER TABLE spectacles ADD COLUMN cat_standard VARCHAR(30) NULL AFTER prix_vip',
+        'ALTER TABLE spectacles ADD COLUMN cat_vip VARCHAR(30) NULL AFTER cat_standard',
+        'ALTER TABLE spectacles ADD COLUMN pers_vip INT NOT NULL DEFAULT 1 AFTER cat_vip',
+    ] as $sql) {
+        try {
+            $pdo->exec($sql);
+        } catch (PDOException $e) {
+        }
+    }
 
     $pdo->exec("CREATE TABLE IF NOT EXISTS reservations (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -85,12 +175,9 @@ function installer(PDO $pdo): void
 
     $n = (int)$pdo->query('SELECT COUNT(*) FROM spectacles')->fetchColumn();
     if ($n === 0) {
-        $ins = $pdo->prepare('INSERT INTO spectacles (ville, salle, date_spectacle, complet) VALUES (?, ?, ?, ?)');
-        $ins->execute(['Paris', "L'Olympia", '2026-10-16', 0]);
-        $ins->execute(['Lyon', 'Le Transbordeur', '2026-11-07', 0]);
-        $ins->execute(['Bordeaux', 'Rocher de Palmer', '2026-11-21', 0]);
-        $ins->execute(['Marseille', 'Le Dôme', '2026-12-05', 0]);
-        $ins->execute(['Genève', 'BFM', '2027-01-30', 0]);
+        $ins = $pdo->prepare('INSERT INTO spectacles (tike_id, titre, ville, salle, date_spectacle, prix_standard, prix_vip, cat_standard, cat_vip, pers_vip, complet) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $ins->execute(['cmt1wadru0009pt1vadca0ui2', 'Blague Live Matter', 'Cotonou', 'La Kalebasse', '2026-09-19', 3000, 5000, 'Solo', 'Duo', 2, 0]);
+        $ins->execute(['cmt1wd2s4000gpt1v8rcscxvk', 'Blague Live Matter', 'Cotonou', 'La Kalebasse', '2026-10-03', 3000, 5000, 'Solo', 'Duo', 2, 0]);
     }
 
     $nv = (int)$pdo->query('SELECT COUNT(*) FROM videos')->fetchColumn();
