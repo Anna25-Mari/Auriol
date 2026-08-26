@@ -13,7 +13,7 @@ if (!$ref || !$code) {
     entete('Erreur');
     echo '<div class="container py-5 text-center">';
     alerte('danger', 'Réponse de paiement invalide.');
-    echo '<a class="btn btn-outline-gold mt-3" href="index.html">Retour à l\'accueil</a></div>';
+    echo '<a class="btn btn-outline-gold mt-3" href="index.php">Retour à l\'accueil</a></div>';
     pied();
     exit;
 }
@@ -24,7 +24,7 @@ if (!$res) {
     entete('Erreur');
     echo '<div class="container py-5 text-center">';
     alerte('danger', 'Réservation introuvable.');
-    echo '<a class="btn btn-outline-gold mt-3" href="index.html">Retour à l\'accueil</a></div>';
+    echo '<a class="btn btn-outline-gold mt-3" href="index.php">Retour à l\'accueil</a></div>';
     pied();
     exit;
 }

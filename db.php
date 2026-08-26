@@ -102,6 +102,25 @@ function installer(PDO $pdo): void
     }
 }
 
+function spectacles_futurs(): array
+{
+    $st = db()->query('SELECT * FROM spectacles WHERE date_spectacle >= CURDATE() ORDER BY date_spectacle ASC');
+    return $st->fetchAll();
+}
+
+function jour_fr(string $date): string
+{
+    $jours = [1 => 'LUN', 2 => 'MAR', 3 => 'MER', 4 => 'JEU', 5 => 'VEN', 6 => 'SAM', 7 => 'DIM'];
+    return $jours[(int)date('N', strtotime($date))];
+}
+
+function date_courte_fr(string $date): string
+{
+    $mois = ['', 'janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'];
+    $t = strtotime($date);
+    return date('j', $t) . ' ' . $mois[(int)date('n', $t)];
+}
+
 function spectacle_par_id(int $id): ?array
 {
     $st = db()->prepare('SELECT * FROM spectacles WHERE id = ?');

@@ -25,17 +25,17 @@ function entete(string $titre): void
     <body id="page-top">
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-shrink" id="mainNav">
             <div class="container">
-                <a class="navbar-brand brand-text" href="index.html">Auriol&nbsp;Migan</a>
+                <a class="navbar-brand brand-text" href="index.php">Auriol&nbsp;Migan</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Basculer la navigation">
                     Menu <i class="fas fa-bars ms-1"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0 align-items-lg-center gap-lg-4">
-                        <li class="nav-item"><a class="nav-link" href="index.html#tour-dates-sec">Soirées</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.php#tour-dates-sec">Soirées</a></li>
                         <li class="nav-item"><a class="nav-link" href="videos.php">En ligne</a></li>
-                        <li class="nav-item"><a class="nav-link" href="index.html#listen-sec">La Chapelle</a></li>
-                        <li class="nav-item"><a class="nav-link" href="index.html#apropos-sec">À propos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="index.html#contact-sec">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.php#listen-sec">La Chapelle</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.php#apropos-sec">À propos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.php#contact-sec">Contact</a></li>
                     </ul>
                     <div class="ms-lg-4 d-none d-lg-flex align-items-center gap-3">
                         <?php foreach ($socials as $slug => $s) { ?>

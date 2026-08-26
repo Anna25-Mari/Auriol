@@ -11,7 +11,7 @@ if (!$res) {
     echo '<div class="text-center">';
     alerte('danger', 'Code de billet introuvable.');
     echo '<br/><br/>';
-    echo '<a href="index.html" class="btn btn-outline-gold mt-3">Retour à l\'accueil</a>';
+    echo '<a href="index.php" class="btn btn-outline-gold mt-3">Retour à l\'accueil</a>';
     echo '</div></div></div>';
     pied();
     exit;
@@ -24,7 +24,7 @@ if ($res['statut'] !== 'paye') {
     echo '<div class="text-center">';
     alerte('warning', 'Paiement en attente. Votre billet vous sera envoyé par email une fois le paiement confirmé.');
     echo '<br/><br/>';
-    echo '<a href="index.html" class="btn btn-outline-gold mt-3">Retour à l\'accueil</a>';
+    echo '<a href="index.php" class="btn btn-outline-gold mt-3">Retour à l\'accueil</a>';
     echo '</div></div></div>';
     pied();
     exit;
@@ -90,7 +90,7 @@ entete('Votre billet — ' . $res['ville']);
 
         <div class="d-flex gap-3 justify-content-center mt-4 no-print">
             <button class="btn btn-primary text-uppercase fw-bold" onclick="window.print()"><i class="fas fa-print me-2"></i>Imprimer</button>
-            <a href="index.html" class="btn btn-outline-gold text-uppercase fw-bold">Retour au site</a>
+            <a href="index.php" class="btn btn-outline-gold text-uppercase fw-bold">Retour au site</a>
         </div>
         <?php if (!empty($GLOBALS['mail_echec'])) { ?>
             <p class="text-muted small text-center mt-3">Note : l'envoi email est en mode démonstration (voir config.php pour activer Gmail).</p>

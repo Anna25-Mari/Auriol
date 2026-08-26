@@ -8,7 +8,7 @@ if (!$spec || (int)$spec['complet'] === 1) {
     entete('Réservation');
     echo '<div class="container py-5 text-center">';
     alerte('warning', $spec ? 'Ce spectacle est complet.' : 'Spectacle introuvable.');
-    echo '<a class="btn btn-outline-gold mt-3" href="index.html#tour-dates-sec">Retour aux dates</a></div>';
+    echo '<a class="btn btn-outline-gold mt-3" href="index.php#tour-dates-sec">Retour aux dates</a></div>';
     pied();
     exit;
 }

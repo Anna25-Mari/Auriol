@@ -13,7 +13,7 @@ if (!$res && !$loc) {
     entete('Paiement');
     echo '<div class="container py-5 text-center">';
     alerte('warning', 'Commande introuvable.');
-    echo '<a class="btn btn-outline-gold mt-3" href="index.html">Retour à l’accueil</a></div>';
+    echo '<a class="btn btn-outline-gold mt-3" href="index.php">Retour à l’accueil</a></div>';
     pied();
     exit;
 }

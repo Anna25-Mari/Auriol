@@ -7,7 +7,7 @@ $res = reservation_par_reference($ref);
 $loc = $res ? null : location_par_reference($ref);
 
 if (!$res && !$loc) {
-    header('Location: index.html');
+    header('Location: index.php');
     exit;
 }
 
