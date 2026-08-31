@@ -28,7 +28,6 @@ $soirees = spectacles_futurs();
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0 align-items-lg-center gap-lg-3">
                         <li class="nav-item"><a class="nav-link" href="#tour-dates-sec">Soirées</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#vod-sec">En ligne</a></li>
                         <li class="nav-item"><a class="nav-link" href="#special-sec">Special</a></li>
                         <li class="nav-item"><a class="nav-link" href="#apropos-sec">À propos</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact-sec">Contact</a></li>
@@ -50,7 +49,6 @@ $soirees = spectacles_futurs();
                     <h1 class="hero-title">Le stand-up béninois,<br />chaque mois à Cotonou</h1>
                     <div class="d-flex flex-column flex-sm-row gap-3 flex-wrap mb-5">
                         <a class="btn btn-primary btn-lg text-uppercase fw-bold" href="#tour-dates-sec">Prochaine soirée <span>&rarr;</span></a>
-                        <a class="btn btn-outline-gold btn-lg text-uppercase fw-bold" href="#vod-sec">Spectacles en ligne</a>
                     </div>
                     <p class="hero-kicker mb-0"><a class="hero-kicker-link" href="https://www.tiktok.com/@auriol.migan" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok me-2"></i>@auriol.migan — Humoriste &amp; producteur de la Comédie CHAPELLE</a></p>
                 </div>
@@ -290,7 +288,6 @@ $soirees = spectacles_futurs();
                 <div class="footer-bottom has-links">
                     <nav class="footer-nav" aria-label="Liens rapides">
                         <a href="#tour-dates-sec">Soirées</a>
-                        <a href="#vod-sec">En ligne</a>
                         <a href="#special-sec">Special</a>
                         <a href="#apropos-sec">À propos</a>
                         <a href="#contact-sec">Contact</a>
