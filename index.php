@@ -15,7 +15,7 @@ $soirees = spectacles_futurs();
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,800" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <link href="css/styles.css" rel="stylesheet" />
-        <link href="css/custom.css" rel="stylesheet" />
+        <link href="css/custom.css?v=<?php echo filemtime(__DIR__ . '/css/custom.css'); ?>" rel="stylesheet" />
     </head>
     <body id="page-top">
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -207,9 +207,14 @@ $soirees = spectacles_futurs();
                 <div class="row g-5 justify-content-center">
                     <div class="col-lg-5">
                         <div class="contact-box">
-                            <div class="tag d-inline-flex align-items-center gap-2"><i class="far fa-envelope"></i> Écris au podcast</div>
-                            <p>Ligne directe</p>
-                            <h4 class="contact-email"><a class="contact-mail-link" href="mailto:podcastauriolmigan@gmail.com">podcast<br />auriolmigan <strong>@</strong><br />gmail.com</a></h4>
+                            <div class="contact-icon-wrap">
+                                <div class="contact-icon-circle">
+                                    <i class="far fa-envelope"></i>
+                                </div>
+                            </div>
+                            <h3 class="contact-box-title">Écris au podcast</h3>
+                            <p class="contact-box-sub">Ligne directe</p>
+                            <a class="contact-email-link" href="mailto:podcastauriolmigan@gmail.com">podcastauriolmigan@gmail.com</a>
                         </div>
                         <div class="flourish-wrap">
                             <svg width="220" height="26" viewBox="0 0 220 26" fill="none" xmlns="http://www.w3.org/2000/svg">
