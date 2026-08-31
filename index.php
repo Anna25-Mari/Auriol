@@ -29,7 +29,7 @@ $soirees = spectacles_futurs();
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0 align-items-lg-center gap-lg-3">
                         <li class="nav-item"><a class="nav-link" href="#tour-dates-sec">Soirées</a></li>
                         <li class="nav-item"><a class="nav-link" href="#vod-sec">En ligne</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#listen-sec">La Chapelle</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#special-sec">Special</a></li>
                         <li class="nav-item"><a class="nav-link" href="#apropos-sec">À propos</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact-sec">Contact</a></li>
                     </ul>
@@ -81,7 +81,7 @@ $soirees = spectacles_futurs();
                         <?php if ((int)$s['complet'] === 1) { ?>
                             <span class="btn btn-outline-gold btn-sm text-uppercase btn-tickets disabled" aria-disabled="true">Complet</span>
                         <?php } else { ?>
-                            <a class="btn btn-outline-gold btn-sm text-uppercase btn-tickets" href="reserver.php?spectacle=<?php echo (int)$s['id']; ?>">Billets</a>
+                            <a class="btn btn-outline-gold btn-sm text-uppercase btn-tickets" href="billets.php">Billets</a>
                         <?php } ?>
                     </div>
                     <?php } } ?>
@@ -90,11 +90,13 @@ $soirees = spectacles_futurs();
             </div>
         </section>
 
-        <section class="section" id="vod-sec">
+      <!--  <section class="section" id="vod-sec">
             <div class="container">
                 <div class="title-bar">
                     <div>
                         <div class="tag">// En ligne</div>
+                        <!-- Spectacles à la demande : v
+                         idéos en location 5 jours 
                         <h2 class="section-title text-uppercase">Spectacles à la demande</h2>
                     </div>
                     <a class="link-arrow d-none d-md-inline-block" href="videos.php">Tout le catalogue <span>&rarr;</span></a>
@@ -145,53 +147,25 @@ $soirees = spectacles_futurs();
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
-        <section class="section" id="listen-sec">
+        <section class="section" id="special-sec">
             <div class="container">
                 <div class="title-bar">
                     <div>
-                        <div class="tag">// Le concept</div>
-                        <h2 class="section-title text-capitalize">La Comédie Chapelle</h2>
+                        <div class="tag">// Le spécial</div>
+                        <h2 class="section-title text-uppercase">Special</h2>
                     </div>
                 </div>
-                <div class="row g-4">
-                    <div class="col-lg-6">
-                        <div class="pod-tile d-flex flex-column flex-sm-row gap-4">
-                            <a class="pod-artwork" href="#contact-sec" style="flex:0 0 40%;">
-                                <img src="assets/img/about/2.jpg" alt="Soirée La Comédie Chapelle à Fidjrossè-Kalebasse" loading="lazy" decoding="async" />
-                            </a>
-                            <div class="d-flex flex-column flex-grow-1">
-                                <div class="small-title">Fidjrossè-Kalebasse · Cotonou</div>
-                                <h3 class="pod-title">Des soirées <span class="hl">100 %</span> stand-up</h3>
-                                <p class="text-muted mb-4">Le rendez-vous mensuel qui donne la scène aux jeunes humoristes béninois. Ambiance chaleureuse, publics conquis, nouvelles têtes à chaque session.</p>
-                                <div class="mt-auto">
-                                    <div class="listen-label">Suivre les annonces :</div>
-                                    <div class="d-flex flex-wrap gap-2">
-                                        <a class="pill-link" href="https://www.tiktok.com/@auriol.migan" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i> TikTok</a>
-                                        <a class="pill-link" href="https://www.instagram.com/auriolmigan" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a>
-                                        <a class="pill-link" href="https://www.facebook.com/share/1BZKFY1YBX/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i> Facebook</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="pod-tile d-flex flex-column flex-sm-row gap-4">
-                            <a class="pod-artwork" href="#vod-sec" style="flex:0 0 40%;">
-                                <img src="assets/img/about/1.jpg" alt="Captations des soirées disponibles en ligne" loading="lazy" decoding="async" />
-                            </a>
-                            <div class="d-flex flex-column flex-grow-1">
-                                <div class="small-title">Où que tu sois</div>
-                                <h3 class="pod-title">Les meilleurs <span class="hl">moments</span> en ligne</h3>
-                                <p class="text-muted mb-4">Tu as manqué une soirée ? Les captations et contenus exclusifs sont disponibles à la location dans la section En ligne.</p>
-                                <div class="mt-auto">
-                                    <a class="btn btn-outline-gold text-uppercase fw-bold" href="#vod-sec">Voir le catalogue <span>&rarr;</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="video-wrap">
+                    <iframe
+                        src="https://www.youtube.com/embed/NGSpELJBn8E"
+                        title="Special Auriol MIGAN"
+                        loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
                 </div>
+                <p class="text-muted mt-4 mb-0 text-center" style="max-width:44rem;margin-left:auto;margin-right:auto;">Le nouveau spectacle d'Auriol MIGAN, à regarder sans modération. <a class="link-arrow" href="https://youtu.be/NGSpELJBn8E?si=QftJLUnpHqgHDIb2" target="_blank" rel="noopener noreferrer">Voir sur YouTube &rarr;</a></p>
             </div>
         </section>
 
@@ -199,10 +173,10 @@ $soirees = spectacles_futurs();
         <section class="section" id="apropos-sec">
             <div class="container">
                 <div class="row align-items-center g-5">
-                    <div class="col-lg-5">
-                        <img class="img-fluid w-100 bio-img" src="assets/img/about/3.jpg" alt="Auriol MIGAN sur scène" loading="lazy" decoding="async" />
+                    <div class="col-lg-6">
+                        <img class="img-fluid w-100 bio-img" src="assets/img/WhatsApp Image 2026-08-21 at 14.57.47.jpeg" alt="Auriol MIGAN" loading="lazy" decoding="async" />
                     </div>
-                    <div class="col-lg-7">
+                    <div class="col-lg-6">
                         <div class="tag">// À propos</div>
                         <h2 class="section-title text-uppercase mb-4">Auriol MIGAN</h2>
                         <p class="lead mb-4">Humoriste et producteur béninois. Sur scène comme en coulisses, il fait vivre le stand-up à Cotonou.</p>
@@ -268,7 +242,7 @@ $soirees = spectacles_futurs();
                     <nav class="footer-nav" aria-label="Liens rapides">
                         <a href="#tour-dates-sec">Soirées</a>
                         <a href="#vod-sec">En ligne</a>
-                        <a href="#listen-sec">La Chapelle</a>
+                        <a href="#special-sec">Special</a>
                         <a href="#apropos-sec">À propos</a>
                         <a href="#contact-sec">Contact</a>
                     </nav>

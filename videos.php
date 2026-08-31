@@ -10,10 +10,12 @@ entete('Spectacles en ligne');
         <div class="title-bar">
             <div>
                 <div class="tag">// En ligne</div>
-                <h1 class="section-title text-uppercase">Spectacles à la demande</h1>
+                <!-- Spectacles à la demande : catalogue de vidéos en location -->
+<h1 class="section-title text-uppercase">Spectacles à la demande</h1>
             </div>
         </div>
         <p class="text-muted mb-5" style="max-width:44rem;">
+            <!-- Location pendant <?php echo DUREE_LOCATION_JOURS; ?> jours, lien expirant ensuite -->
             Spectacles filmés, films et podcasts premium. Payez une fois, regardez pendant <?php echo DUREE_LOCATION_JOURS; ?> jours, le lien expire ensuite.
         </p>
 

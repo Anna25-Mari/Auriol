@@ -33,7 +33,7 @@ function entete(string $titre): void
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0 align-items-lg-center gap-lg-4">
                         <li class="nav-item"><a class="nav-link" href="index.php#tour-dates-sec">Soirées</a></li>
                         <li class="nav-item"><a class="nav-link" href="videos.php">En ligne</a></li>
-                        <li class="nav-item"><a class="nav-link" href="index.php#listen-sec">La Chapelle</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.php#special-sec">Special</a></li>
                         <li class="nav-item"><a class="nav-link" href="index.php#apropos-sec">À propos</a></li>
                         <li class="nav-item"><a class="nav-link" href="index.php#contact-sec">Contact</a></li>
                     </ul>

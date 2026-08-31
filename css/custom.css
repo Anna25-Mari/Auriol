@@ -1,9 +1,10 @@
 :root {
-  --bs-primary: #dce067;
-  --bs-primary-rgb: 220, 224, 103;
+  --bs-primary: #ff9e2c;
+  --bs-primary-rgb: 255, 158, 44;
   --bb-bg: #141414;
   --bb-card: #1d1d1d;
-  --bb-accent: #dce067;
+  --bb-accent: #ff9e2c;
+  --bb-accent-dark: #e07a12;
   --bb-line: rgba(255, 255, 255, 0.12);
 }
 
@@ -288,7 +289,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section {
-  padding: 6rem 0;
+  padding: 2.5rem 0;
 }
 
 .title-bar {
@@ -580,7 +581,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .contact-bar {
   position: relative;
-  padding: 8rem 0;
+  padding: 5rem 0;
   background-size: cover;
   background-position: center;
   text-align: center;
@@ -663,6 +664,10 @@ h1, h2, h3, h4, h5, h6 {
 .bio-img {
   border-radius: 0.5rem;
   box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  aspect-ratio: auto;
 }
 
 .stat-nombre {
@@ -804,7 +809,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .section {
-    padding: 4.5rem 0;
+    padding: 2.5rem 0;
   }
 }
 
@@ -833,4 +838,84 @@ a:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--bb-accent);
   outline-offset: 3px;
+}
+
+.tiles-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.tiles-wrap .repeat {
+  flex: 1 1 240px;
+  max-width: 340px;
+}
+
+.special-card {
+  display: block;
+  position: relative;
+  border-radius: 0.6rem;
+  overflow: hidden;
+  box-shadow: 0 1.25rem 2.5rem rgba(0, 0, 0, 0.45);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.special-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+  opacity: 0.9;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.special-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 10, 10, 0.85), transparent 45%);
+}
+
+.special-card .title {
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 2;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+}
+
+.special-card:hover {
+  transform: translateY(-0.35rem);
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.6);
+}
+
+.special-card:hover img {
+  transform: scale(1.06);
+  opacity: 1;
+}
+
+.video-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 0.6rem;
+  box-shadow: 0 1.25rem 2.5rem rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--bb-line);
+}
+
+.video-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }

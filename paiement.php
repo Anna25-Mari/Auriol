@@ -51,25 +51,73 @@ entete('Paiement');
 
         <form method="post" action="valider_paiement.php" class="pod-tile p-4 p-md-5">
             <input type="hidden" name="ref" value="<?php echo htmlspecialchars($ref); ?>" />
-            <div class="listen-label mb-3"><i class="fas fa-credit-card me-2"></i>Informations de carte</div>
+<div class="listen-label mb-3"><i class="fas fa-credit-card me-2"></i>Mode de paiement</div>
             <div class="mb-3">
-                <input class="form-control" name="titulaire" required placeholder="Nom du titulaire" />
-            </div>
-            <div class="mb-3">
-                <input class="form-control" name="numero" required inputmode="numeric" pattern="[0-9 ]{16,19}" placeholder="0000 0000 0000 0000" />
-            </div>
-            <div class="row g-3 mb-4">
-                <div class="col-6">
-                    <input class="form-control" name="expiration" required pattern="(0[1-9]|1[0-2])/?[0-9]{2}" placeholder="MM/AA" />
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="mode_paiement" value="carte" id="carte" checked>
+                    <label class="form-check-label" for="carte">
+                        Carte bancaire
+                    </label>
                 </div>
-                <div class="col-6">
-                    <input class="form-control" name="cvv" required inputmode="numeric" pattern="[0-9]{3,4}" placeholder="CVV" />
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="mode_paiement" value="mobilemoney" id="mobilemoney">
+                    <label class="form-check-label" for="mobilemoney">
+                        Mobile Money
+                    </label>
                 </div>
+            </div>
+            <div id="form-carte" style="display:block;">
+                <div class="mb-3">
+                    <input class="form-control" name="titulaire" required placeholder="Nom du titulaire" />
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" name="numero" required inputmode="numeric" pattern="[0-9 ]{16,19}" placeholder="0000 0000 0000 0000" />
+                </div>
+                <div class="row g-3 mb-4">
+                    <div class="col-6">
+                        <input class="form-control" name="expiration" required pattern="(0[1-9]|1[0-2])/?[0-9]{2}" placeholder="MM/AA" />
+                    </div>
+                    <div class="col-6">
+                        <input class="form-control" name="cvv" required inputmode="numeric" pattern="[0-9]{3,4}" placeholder="CVV" />
+                    </div>
+                </div>
+            </div>
+            <div id="form-mobilemoney" style="display:none;">
+                <p class="text-muted small">Numéro Mobile Money : <input class="form-control" type="tel" name="num_mobile" placeholder="+229 96 00 00 00" /></p>
+                <p class="text-muted small">Montant à payer : <strong><?php echo format_montant($montant); ?></strong></p>
             </div>
             <button class="btn btn-primary btn-lg w-100 text-uppercase fw-bold" type="submit">Payer <?php echo format_montant($montant); ?></button>
-            <p class="text-muted small text-center mt-3 mb-0">Paiement de démonstration — connectez ici Stripe, PayPal ou Mobile Money en production.</p>
+            <p class="text-muted small text-center mt-3 mb-0">Ou scannez le QR code Mobile Money ci-dessous.</p>
+<div class="mt-3">
+                <div id="qrcode-mm" class="d-inline-block"></div>
+            </div>
         </form>
     </div>
 </section>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var carte = document.getElementById('form-carte');
+    var mm = document.getElementById('form-mobilemoney');
+    var radios = document.querySelectorAll('input[name="mode_paiement"]');
+    
+    // État initial
+    if (carte && mm) {
+        carte.style.display = 'block';
+        mm.style.display = 'none';
+    }
+    
+    radios.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            if (this.value === 'mobilemoney') {
+                if (carte) carte.style.display = 'none';
+                if (mm) mm.style.display = 'block';
+            } else {
+                if (carte) carte.style.display = 'block';
+                if (mm) mm.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
 <?php
 pied();
