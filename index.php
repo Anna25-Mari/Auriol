@@ -204,21 +204,65 @@ $soirees = spectacles_futurs();
         <section class="contact-bar" id="contact-sec" style="background-image:url('assets/img/map-image.png');">
             <div class="container contact-inner">
                 <h2 class="section-title text-uppercase text-center mb-5">Contact</h2>
-                <div class="contact-box">
-                    <div class="tag d-inline-flex align-items-center gap-2"><i class="far fa-envelope"></i> Écris au podcast</div>
-                    <p>Ligne directe</p>
-                    <h4 class="contact-email"><a class="contact-mail-link" href="mailto:podcastauriolmigan@gmail.com">podcast<br />auriolmigan <strong>@</strong><br />gmail.com</a></h4>
-                </div>
-                <div class="flourish-wrap">
-                    <svg width="220" height="26" viewBox="0 0 220 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2 13 C 40 -8, 80 34, 110 13 C 140 -8, 180 34, 218 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </div>
-                <div class="d-flex flex-wrap justify-content-center gap-3 mt-5">
-                    <a class="social-btn-lg" href="https://www.tiktok.com/@auriol.migan" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                    <a class="social-btn-lg" href="https://www.facebook.com/share/1BZKFY1YBX/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a class="social-btn-lg" href="https://www.instagram.com/auriolmigan" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a class="social-btn-lg" href="https://www.youtube.com/@auriolmigan-os6fc" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <div class="row g-5 justify-content-center">
+                    <div class="col-lg-5">
+                        <div class="contact-box">
+                            <div class="tag d-inline-flex align-items-center gap-2"><i class="far fa-envelope"></i> Écris au podcast</div>
+                            <p>Ligne directe</p>
+                            <h4 class="contact-email"><a class="contact-mail-link" href="mailto:podcastauriolmigan@gmail.com">podcast<br />auriolmigan <strong>@</strong><br />gmail.com</a></h4>
+                        </div>
+                        <div class="flourish-wrap">
+                            <svg width="220" height="26" viewBox="0 0 220 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 13 C 40 -8, 80 34, 110 13 C 140 -8, 180 34, 218 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
+                            <a class="social-btn-lg" href="https://www.tiktok.com/@auriol.migan" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                            <a class="social-btn-lg" href="https://www.facebook.com/share/1BZKFY1YBX/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a class="social-btn-lg" href="https://www.instagram.com/auriolmigan" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a class="social-btn-lg" href="https://www.youtube.com/@auriolmigan-os6fc" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <form class="contact-form" id="contactForm" action="contact_submit.php" method="POST" novalidate>
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="cf-nom">Nom</label>
+                                    <input class="form-control" type="text" id="cf-nom" name="nom" placeholder="Ton nom" required />
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="cf-email">Email</label>
+                                    <input class="form-control" type="email" id="cf-email" name="email" placeholder="ton@email.com" required />
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label" for="cf-sujet">Sujet</label>
+                                    <select class="form-select" id="cf-sujet" name="sujet" required>
+                                        <option value="" disabled selected>Choisir un sujet</option>
+                                        <option value="Réservation / Billetterie">Réservation / Billetterie</option>
+                                        <option value="Sponsoring / Partenariat">Sponsoring / Partenariat</option>
+                                        <option value="Média / Presse">Média / Presse</option>
+                                        <option value="Autre">Autre</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label" for="cf-message">Message</label>
+                                    <textarea class="form-control" id="cf-message" name="message" rows="5" placeholder="Écris ton message ici…" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary btn-lg text-uppercase fw-bold w-100" type="submit" id="cf-submit">
+                                        <span class="cf-btn-text">Envoyer <i class="fas fa-paper-plane ms-2"></i></span>
+                                        <span class="cf-btn-loading d-none"><i class="fas fa-spinner fa-spin me-2"></i>Envoi…</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="cf-alert cf-alert-ok mt-3 d-none" role="alert">
+                                <i class="fas fa-check-circle me-2"></i>Merci ! Ton message a bien été envoyé.
+                            </div>
+                            <div class="cf-alert cf-alert-err mt-3 d-none" role="alert">
+                                <i class="fas fa-exclamation-triangle me-2"></i>Oups, une erreur s'est produite. Réessaie ou écris directement à <a href="mailto:podcastauriolmigan@gmail.com">podcastauriolmigan@gmail.com</a>.
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
@@ -253,5 +297,44 @@ $soirees = spectacles_futurs();
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="js/scripts.js"></script>
+        <script>
+        (function () {
+            var form = document.getElementById('contactForm');
+            if (!form) return;
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var btn = document.getElementById('cf-submit');
+                var txt = form.querySelector('.cf-btn-text');
+                var ld  = form.querySelector('.cf-btn-loading');
+                var ok  = form.querySelector('.cf-alert-ok');
+                var err = form.querySelector('.cf-alert-err');
+                ok.classList.add('d-none');
+                err.classList.add('d-none');
+                btn.disabled = true;
+                txt.classList.add('d-none');
+                ld.classList.remove('d-none');
+
+                var fd = new FormData(form);
+                fetch('contact_submit.php', { method: 'POST', body: fd })
+                    .then(function (r) { return r.json(); })
+                    .then(function (d) {
+                        if (d.ok) {
+                            form.reset();
+                            ok.classList.remove('d-none');
+                        } else {
+                            err.classList.remove('d-none');
+                        }
+                    })
+                    .catch(function () {
+                        err.classList.remove('d-none');
+                    })
+                    .finally(function () {
+                        btn.disabled = false;
+                        txt.classList.remove('d-none');
+                        ld.classList.add('d-none');
+                    });
+            });
+        })();
+        </script>
     </body>
 </html>
