@@ -605,41 +605,73 @@ h1, h2, h3, h4, h5, h6 {
   padding: 3rem 2rem;
   border: 1px solid var(--bb-line);
   background: rgba(17, 17, 17, 0.6);
+  text-align: center;
 }
 
-.contact-box .tag {
+.contact-icon-wrap {
+  display: flex;
   justify-content: center;
+  margin-bottom: 1.5rem;
 }
 
-.contact-box p {
-  color: #a5a29a;
-  margin-bottom: 1.25rem;
+.contact-icon-circle {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: 1px solid var(--bb-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: var(--bb-accent);
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
-.contact-email {
+.contact-icon-circle:hover {
+  background: var(--bb-accent);
+  color: #111111;
+}
+
+.contact-box-title {
+  font-family: "Montserrat", sans-serif;
   font-weight: 800;
-  font-size: clamp(1.7rem, 4vw, 2.6rem);
-  line-height: 1.25;
-  letter-spacing: 0.03em;
-  margin: 0;
-  word-break: break-word;
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  color: #ffffff;
+  letter-spacing: 0.01em;
+  margin: 0 0 0.6rem;
 }
 
-.contact-mail-link {
-  color: inherit;
+.contact-box-sub {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 1.5rem;
+}
+
+.contact-email-link {
+  display: inline-block;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.05rem, 2.8vw, 1.55rem);
+  line-height: 1.35;
+  color: var(--bb-accent);
   text-decoration: none;
+  word-break: break-word;
   transition: color 0.2s ease;
 }
 
-.contact-mail-link:hover,
-.contact-mail-link:focus-visible {
-  color: var(--bb-accent);
+.contact-email-link:hover,
+.contact-email-link:focus-visible {
+  color: #ffffff;
 }
 
 .flourish-wrap {
-  margin-top: 3rem;
+  margin-top: 2.5rem;
   color: var(--bb-accent);
-  opacity: 0.85;
+  opacity: 0.7;
 }
 
 .social-btn-lg {
